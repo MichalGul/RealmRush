@@ -23,12 +23,14 @@ public class CubeEditor : MonoBehaviour
     {
         // Snap block to 10/10/10 grid
         Vector3 snapPosition;
-        snapPosition.x = Mathf.RoundToInt(transform.position.x / gridSize) *gridSize;
+        snapPosition.x = Mathf.RoundToInt(transform.position.x / gridSize) * gridSize;
         snapPosition.z = Mathf.RoundToInt(transform.position.z / gridSize) * gridSize;
 
         textMesh = GetComponentInChildren<TextMesh>();
-        textMesh.text = snapPosition.x /gridSize + "," + snapPosition.z / gridSize;
-
+        textMesh.text = snapPosition.x / gridSize + "," + snapPosition.z / gridSize;
         transform.position = new Vector3(snapPosition.x, 0, snapPosition.z);
+
+        gameObject.name = snapPosition.x / gridSize + "," + snapPosition.z / gridSize; ;
+
     }
 }
