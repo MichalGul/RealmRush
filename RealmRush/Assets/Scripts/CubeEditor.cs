@@ -5,32 +5,47 @@ using UnityEngine;
 //Dzięki temu skrypt będzie się odpalał w edytorze 
 [ExecuteInEditMode]
 [SelectionBase]
+[RequireComponent(typeof(Waypoint))]
 public class CubeEditor : MonoBehaviour
 {
+    Waypoint waypoint;
 
-    [SerializeField] [Range(1f, 20f)] public float gridSize;
-    TextMesh textMesh;
 
+    private void Awake() 
+    {
+        waypoint = GetComponent<Waypoint>();
+    }
     // Start is called before the first frame update
     void Start()
     {
-       
-        
+               
     }
 
     // Update is called once per frame
     void Update()
     {
         // Snap block to 10/10/10 grid
-        Vector3 snapPosition;
-        snapPosition.x = Mathf.RoundToInt(transform.position.x / gridSize) * gridSize;
-        snapPosition.z = Mathf.RoundToInt(transform.position.z / gridSize) * gridSize;
+        SnapToGrid();
+        UpdateLabel();
 
-        textMesh = GetComponentInChildren<TextMesh>();
-        textMesh.text = snapPosition.x / gridSize + "," + snapPosition.z / gridSize;
-        transform.position = new Vector3(snapPosition.x, 0, snapPosition.z);
+    }
 
-        gameObject.name = snapPosition.x / gridSize + "," + snapPosition.z / gridSize; ;
+    private void UpdateLabel()
+    {
+        float gridSize = waypoint.GetGridSize();
+        TextMesh textMesh = GetComponentInChildren<TextMesh>();
 
+        textMesh.text = waypoint.GetGridPos().x / gridSize + "," + waypoint.GetGridPos().y / gridSize;
+        transform.position = new Vector3(waypoint.GetGridPos().x, 0, waypoint.GetGridPos().y);
+        gameObject.name = waypoint.GetGridPos().x / gridSize + "," + waypoint.GetGridPos().y / gridSize;
+    }
+
+    private void SnapToGrid()
+    {
+        float gridSize = waypoint.GetGridSize();
+        transform.position = new Vector3(
+                                        waypoint.GetGridPos().x, 
+                                        0, 
+                                        waypoint.GetGridPos().y);
     }
 }
