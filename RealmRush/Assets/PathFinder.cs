@@ -7,11 +7,15 @@ public class PathFinder : MonoBehaviour
 
     Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
 
+    [SerializeField] public Waypoint startPoint;
+    [SerializeField] public Waypoint endPoint;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        ColorStartAndEnd();
         LoadBlocks();
+
 
     }
 
@@ -35,11 +39,20 @@ public class PathFinder : MonoBehaviour
             {
                 //Add to dict
                 grid.Add(waypoint.GetGridPos(), waypoint);
+                
             }
             
 
         }
         print("Loaded " + grid.Count + " blocks");
+    }
+
+
+
+    public void ColorStartAndEnd()
+    {
+        startPoint.SetTopColor(Color.green);
+        endPoint.SetTopColor(Color.red);
     }
 
 }
