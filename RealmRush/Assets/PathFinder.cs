@@ -10,6 +10,7 @@ public class PathFinder : MonoBehaviour
     Queue<Waypoint> queue = new Queue<Waypoint>();
     [SerializeField] bool isRunning = true;
     Waypoint searchCenter; //the current search center
+    private List<Waypoint> path = new List<Waypoint>(); 
 
 
     Vector2Int[] directions =
@@ -23,17 +24,33 @@ public class PathFinder : MonoBehaviour
     [SerializeField] public Waypoint startPoint;
     [SerializeField] public Waypoint endPoint;
 
-    // Start is called before the first frame update
-    void Start()
+
+    public List<Waypoint> GetPath()
     {
         ColorStartAndEnd();
         LoadBlocks();
-        PathFind();
-        //ExploreNeighbours();
-
+        BreadthFirstSearch();
+        CreatePath();
+        return path;
     }
 
-    private void PathFind()
+    private void CreatePath()
+    {   
+        path.Add(endPoint);
+        Waypoint previous = endPoint.exploredFrom;
+        while(previous != startPoint)
+        {
+            //add intermediate waypoints
+            path.Add(previous);
+            previous = previous.exploredFrom;
+        }
+        //add start waypoint
+        path.Add(startPoint);
+        //reverse list
+        path.Reverse();
+    }
+
+    private void BreadthFirstSearch()
     {
         queue.Enqueue(startPoint);
 
@@ -48,7 +65,7 @@ public class PathFinder : MonoBehaviour
 
         }
         // todo work out path from start to end point
-        print("finished pathfinding");
+        
     }
 
     private void HaltIfEnd()
@@ -68,14 +85,11 @@ public class PathFinder : MonoBehaviour
         {
             //find neighbour coordinates
             Vector2Int neighbourCoordinates = searchCenter.GetGridPos() + direction;
-            try
+            if(grid.ContainsKey(neighbourCoordinates))
             {
                 QueueNewNeighbours(neighbourCoordinates);
             }
-            catch
-            {
-                
-            }
+ 
         }
     }
 
@@ -131,6 +145,7 @@ public class PathFinder : MonoBehaviour
 
     public void ColorStartAndEnd()
     {
+        //todo consider moving out
         startPoint.SetTopColor(Color.green);
         endPoint.SetTopColor(Color.red);
     }
