@@ -34,15 +34,21 @@ public class Waypoint : MonoBehaviour
 
     public void SetTopColor(Color color)
     {
-        MeshRenderer topMeshRenderer = transform.Find("Top").GetComponent<MeshRenderer>();
-        topMeshRenderer.material.color = color;
+        try
+        {
+            MeshRenderer topMeshRenderer = transform.Find("Top").GetComponent<MeshRenderer>();
+            if(topMeshRenderer)
+            {
+                topMeshRenderer.material.color = color;
+            }
+        }
+        catch
+        {
+            //Debug.Log("Not colored Top");
+        }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
 
     // Update is called once per frame
     void Update()

@@ -23,7 +23,7 @@ public class EnemyMovement : MonoBehaviour
             transform.position = item.transform.position;
             //print("Visiting: " + item.name);
             // wait a second
-            yield return new WaitForSeconds(1f); //return execution 
+            yield return new WaitForSeconds(2f); //return execution 
         }
         print("Ending patrol");
     }

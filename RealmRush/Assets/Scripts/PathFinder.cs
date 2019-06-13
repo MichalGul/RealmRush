@@ -57,7 +57,7 @@ public class PathFinder : MonoBehaviour
         while(queue.Count > 0 && isRunning)
         {
             searchCenter = queue.Dequeue();
-            print("Searching from: " + searchCenter); //todo remove log
+            //print("Searching from: " + searchCenter); //todo remove log
             searchCenter.isExplored = true;
             HaltIfEnd();
             //explore neighbours
@@ -108,7 +108,7 @@ public class PathFinder : MonoBehaviour
             //queue neighbour
             queue.Enqueue(neightbour);
             neightbour.exploredFrom = searchCenter;
-            print("Queueing " + neightbour);
+            //print("Queueing " + neightbour);
         }
 
     }
