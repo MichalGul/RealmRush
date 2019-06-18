@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-//     //[SerializeField] List<Waypoint> path = new List<Waypoint>();
+    [SerializeField] float movementPeriod = 0.5f;
+    [SerializeField] ParticleSystem goalParticleEffect;
 
-//     // Start is called before the first frame update
     void Start()
     {
         PathFinder pathfinder = FindObjectOfType<PathFinder>();
@@ -23,8 +23,10 @@ public class EnemyMovement : MonoBehaviour
             transform.position = item.transform.position;
             //print("Visiting: " + item.name);
             // wait a second
-            yield return new WaitForSeconds(2f); //return execution 
+            yield return new WaitForSeconds(movementPeriod); //return execution 
         }
-        print("Ending patrol");
+
+        GetComponent<EnemyDamage>().KillEnemy(goalParticleEffect);
+
     }
 }

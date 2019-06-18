@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4408501005226440}
   - component: {fileID: 8929276230432457793}
   - component: {fileID: 6751271959317208925}
+  - component: {fileID: 7986817278633854534}
   m_Layer: 0
   m_Name: 0,0
   m_TagString: Untagged
@@ -60,8 +61,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exploredColor: {r: 0, g: 0.16624598, b: 0.990566, a: 0.39215687}
   unexploredColor: {r: 0.6132076, g: 0.5756052, b: 0.5756052, a: 0.40784314}
+  towerPrefab: {fileID: 855104482373284059, guid: 65fd7b4010f761f40a590a5a286bcedc,
+    type: 3}
   isExplored: 0
   exploredFrom: {fileID: 0}
+  isPlaceable: 1
+--- !u!65 &7986817278633854534
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228860992183148}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: -5, z: 0}
 --- !u!1 &1240120820391100
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,7 +318,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1570084270212615115, guid: f27a4597efbf3694b95687e7aeef7fcc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f27a4597efbf3694b95687e7aeef7fcc, type: 3}
 --- !u!4 &6196211962065613120 stripped
 Transform:

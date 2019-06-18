@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,17 +8,16 @@ public class Waypoint : MonoBehaviour
 
     [SerializeField] Color exploredColor;
     [SerializeField] Color unexploredColor;
+   // [SerializeField] Tower towerPrefab;
 
 
     public bool isExplored = false;
     public Waypoint exploredFrom;
-
-    const int GRID_SIZE = 10;
+    public bool isPlaceable = true;
 
     Vector2Int gridPos;
 
-
-
+    const int GRID_SIZE = 10;
 
     public int GetGridSize()
     {
@@ -48,6 +48,20 @@ public class Waypoint : MonoBehaviour
         }
     }
 
+
+    void OnMouseOver() 
+    {
+        if(Input.GetMouseButtonDown(0) && isPlaceable)
+        {
+            PlaceTower();
+            Debug.Log(gameObject.name);    
+        }
+    }
+
+    private void PlaceTower()
+    {
+        FindObjectOfType<TowerFactory>().AddTower(this);
+    }
 
 
     // Update is called once per frame

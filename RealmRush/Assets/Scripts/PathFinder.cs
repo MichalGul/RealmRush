@@ -27,29 +27,47 @@ public class PathFinder : MonoBehaviour
 
     public List<Waypoint> GetPath()
     {
+        if (path.Count == 0)
+        {
+            CalculatePath();
+        }
+
+        return path;
+    }
+
+    private void CalculatePath()
+    {
         ColorStartAndEnd();
         LoadBlocks();
         BreadthFirstSearch();
         CreatePath();
-        return path;
     }
 
     private void CreatePath()
     {   
-        path.Add(endPoint);
+
+        SetAsPath(endPoint);
         Waypoint previous = endPoint.exploredFrom;
+        
         while(previous != startPoint)
         {
             //add intermediate waypoints
-            path.Add(previous);
+            SetAsPath(previous);
             previous = previous.exploredFrom;
         }
         //add start waypoint
-        path.Add(startPoint);
+        SetAsPath(startPoint);
+
         //reverse list
         path.Reverse();
     }
 
+    private void SetAsPath(Waypoint waypoint)
+    {
+        path.Add(waypoint);
+        waypoint.isPlaceable = false;
+
+    }
     private void BreadthFirstSearch()
     {
         queue.Enqueue(startPoint);
@@ -108,7 +126,7 @@ public class PathFinder : MonoBehaviour
             //queue neighbour
             queue.Enqueue(neightbour);
             neightbour.exploredFrom = searchCenter;
-            //print("Queueing " + neightbour);
+
         }
 
     }
